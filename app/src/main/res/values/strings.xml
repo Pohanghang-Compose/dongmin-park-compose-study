@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">sopt-compose</string>
+
+    <!--word-->
+    <string name="id">ID</string>
+    <string name="pw">PW</string>
+
+    <!--Sign In-->
+    <string name="sign_in_title">Welcome To SOPT</string>
+    <string name="sign_in_id_hint">아이디를 입력해 주세요</string>
+    <string name="sign_in_pw_hint">비밀번호를 입력해 주세요</string>
 </resources>
