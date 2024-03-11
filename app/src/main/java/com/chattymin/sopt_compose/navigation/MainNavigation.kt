@@ -1,12 +1,12 @@
-package com.chattymin.sopt_compose.ui.navigation
+package com.chattymin.sopt_compose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.chattymin.sopt_compose.ui.feature.main.MainPage
-import com.chattymin.sopt_compose.ui.feature.signin.SignInPage
-import com.chattymin.sopt_compose.ui.feature.signup.SignUpPage
+import com.chattymin.sopt_compose.feature.main.MainPage
+import com.chattymin.sopt_compose.feature.signin.SignInPage
+import com.chattymin.sopt_compose.feature.signup.SignUpPage
 
 @Composable
 fun MainNavigation(

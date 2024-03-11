@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.ui.feature.signup
+package com.chattymin.sopt_compose.feature.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,11 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
-fun SignUpPage(navController: NavController) {
+fun MainPage(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "SignUp")
+        Text(text = "Main")
     }
 }

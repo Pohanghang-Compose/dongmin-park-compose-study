@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.chattymin.sopt_compose.ui.navigation.MainNavigation
+import com.chattymin.sopt_compose.navigation.MainNavigation
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 
 class MainActivity : ComponentActivity() {

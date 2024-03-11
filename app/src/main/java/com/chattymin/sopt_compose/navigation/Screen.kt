@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.ui.navigation
+package com.chattymin.sopt_compose.navigation
 
 sealed class Screen(val route: String) {
     object SignIn : Screen(route = "login")
