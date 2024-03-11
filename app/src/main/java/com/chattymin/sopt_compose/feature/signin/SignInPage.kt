@@ -1,5 +1,6 @@
 package com.chattymin.sopt_compose.feature.signin
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,17 +12,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
@@ -30,17 +31,30 @@ import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.ext.addFocusCleaner
+import com.chattymin.sopt_compose.ext.toast
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 
 @Composable
 fun SignInPage(
-    navController: NavController,
-    viewModel: SignInViewModel = hiltViewModel()
+    navController: NavController
 ) {
-    val id = remember { mutableStateOf("") }
-    val pw = remember { mutableStateOf("") }
+    val viewModel: SignInViewModel = viewModel()
+
+    val state by viewModel.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = navController) {
+        navController.previousBackStackEntry.let {
+            val value = it?.savedStateHandle?.get<String>("data") ?: ""
+            viewModel.idChanged(value)
+            Log.e("TAG", "SignInPage: $value")
+        }
+    }
+
 
     Scaffold(
         topBar = {
@@ -57,18 +71,22 @@ fun SignInPage(
         ) {
             TitleWithEtv(
                 title = stringResource(id = R.string.id),
-                value = id,
+                value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
-            )
+            ) {
+                viewModel.idChanged(it)
+            }
 
             VerticalSpacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.pw),
-                value = pw,
+                value = state.pw,
                 hint = stringResource(id = R.string.auth_pw_hint),
                 keyboardType = KeyboardType.Password
-            )
+            ) {
+                viewModel.pwChanged(it)
+            }
 
             Row(
                 modifier = Modifier.fillMaxSize(),
@@ -76,7 +94,10 @@ fun SignInPage(
                 verticalAlignment = Alignment.Bottom
             ) {
                 Button(
-                    onClick = { navController.navigate(Screen.Main.route) }
+                    enabled = state.canLogin,
+                    onClick = {
+                        viewModel.signInButtonClicked()
+                    }
                 ) {
                     Text(text = stringResource(id = R.string.sign_in_btn))
                 }
@@ -84,11 +105,19 @@ fun SignInPage(
                 HorizontalSpacer(dp = 4)
 
                 Button(
-                    onClick = { navController.navigate(Screen.SignUp.route) }
+                    onClick = { viewModel.navigateToSignUpPage() }
                 ) {
                     Text(text = stringResource(id = R.string.sign_up_btn))
                 }
             }
+        }
+    }
+
+    viewModel.collectSideEffect {
+        when (it) {
+            SignInSideEffect.NavigateToMain -> navController.navigate(Screen.Main.route)
+            SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
+            is SignInSideEffect.Toast -> toast(context, it.message)
         }
     }
 }
@@ -96,9 +125,10 @@ fun SignInPage(
 @Composable
 fun TitleWithEtv(
     title: String,
-    value: MutableState<String>,
+    value: String,
     hint: String,
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    onChange: (String) -> Unit
 ) =
     Column {
         Text(
@@ -107,8 +137,8 @@ fun TitleWithEtv(
         )
         EditTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = value.value,
-            onValueChanged = { value.value = it },
+            value = value,
+            onValueChanged = { onChange(it) },
             hint = hint,
             singleLine = true,
             textStyle = MaterialTheme.typography.bodyLarge,
