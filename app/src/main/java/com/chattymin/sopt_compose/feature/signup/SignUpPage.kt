@@ -24,6 +24,7 @@ import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.feature.signin.TitleWithEtv
+import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 
 @Composable
@@ -70,7 +71,7 @@ fun SignUpPage(navController: NavController) {
             )
 
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = { navController.navigate(Screen.Main.route) }) {
                     Text(text = stringResource(id = R.string.sign_up_btn))
                 }
             }
