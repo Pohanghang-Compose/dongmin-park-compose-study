@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -69,4 +70,5 @@ dependencies {
     implementation(libs.bundles.orbit)
     implementation(libs.bundles.navigation)
     implementation(libs.coil)
+    implementation(libs.bundles.hilt)
 }
