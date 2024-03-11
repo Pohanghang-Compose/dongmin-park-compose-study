@@ -68,5 +68,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.bundles.orbit)
     implementation(libs.bundles.navigation)
-    implementation(libs.glide)
+    implementation(libs.coil)
 }
