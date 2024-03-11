@@ -16,7 +16,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,10 +26,14 @@ import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.EditTextField
 import com.chattymin.sopt_compose.components.TitleText
+import com.chattymin.sopt_compose.ext.addFocusCleaner
+import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 
 @Composable
 fun SignInPage(navController: NavController) {
+    val focusManager = LocalFocusManager.current
+
     val id = remember { mutableStateOf("") }
     val pw = remember { mutableStateOf("") }
 
@@ -40,13 +46,14 @@ fun SignInPage(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(20.dp),
+                .padding(20.dp)
+                .addFocusCleaner(focusManager),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TitleWithEtv(
                 title = stringResource(id = R.string.id),
                 value = id,
-                hint = stringResource(id = R.string.sign_in_id_hint)
+                hint = stringResource(id = R.string.auth_id_hint)
             )
 
             Spacer(modifier = Modifier.padding(vertical = 20.dp))
@@ -54,11 +61,14 @@ fun SignInPage(navController: NavController) {
             TitleWithEtv(
                 title = stringResource(id = R.string.pw),
                 value = pw,
-                hint = stringResource(id = R.string.sign_in_pw_hint)
+                hint = stringResource(id = R.string.auth_pw_hint),
+                keyboardType = KeyboardType.Password
             )
 
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-                Button(onClick = { /*TODO*/ }) {
+                Button(onClick = {
+                    navController.navigate(Screen.SignUp.route)
+                }) {
                     Text(text = stringResource(id = R.string.sign_in_btn))
                 }
             }
@@ -67,7 +77,12 @@ fun SignInPage(navController: NavController) {
 }
 
 @Composable
-fun TitleWithEtv(title: String, value: MutableState<String>, hint: String) =
+fun TitleWithEtv(
+    title: String,
+    value: MutableState<String>,
+    hint: String,
+    keyboardType: KeyboardType = KeyboardType.Text
+) =
     Column {
         Text(
             text = title,
@@ -80,6 +95,7 @@ fun TitleWithEtv(title: String, value: MutableState<String>, hint: String) =
             hint = hint,
             singleLine = true,
             textStyle = MaterialTheme.typography.bodyLarge,
+            keyboardType = keyboardType
         )
     }
 
