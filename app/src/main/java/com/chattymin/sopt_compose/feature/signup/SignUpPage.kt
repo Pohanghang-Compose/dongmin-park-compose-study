@@ -136,7 +136,7 @@ fun SignUpPage(navController: NavController) {
                 navController.navigate(Screen.SignIn.route)
             }
 
-            is SignUpSideEffect.Toast -> toast(context, it.message)
+            is SignUpSideEffect.Toast -> toast(context, context.getString(R.string.sign_up_success))
         }
     }
 }

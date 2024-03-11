@@ -1,6 +1,5 @@
 package com.chattymin.sopt_compose.feature.signin
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,7 +35,6 @@ import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
-
 @Composable
 fun SignInPage(
     navController: NavController
@@ -60,7 +58,6 @@ fun SignInPage(
                 this.singleInfo = singleInfo
                 this.specialty = specialty
             }
-            Log.e("TAG", "SignInPage: $nickname, $singleInfo, $specialty")
         }
     }
 
@@ -148,7 +145,7 @@ fun SignInPage(
             }
 
             SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
-            is SignInSideEffect.Toast -> toast(context, it.message)
+            is SignInSideEffect.Toast -> toast(context, context.getString(R.string.sign_in_success))
         }
     }
 }
@@ -160,23 +157,21 @@ fun TitleWithEtv(
     hint: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     onChange: (String) -> Unit
-) =
-    Column {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-        )
-        EditTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = value,
-            onValueChanged = { onChange(it) },
-            hint = hint,
-            singleLine = true,
-            textStyle = MaterialTheme.typography.bodyLarge,
-            keyboardType = keyboardType
-        )
-    }
-
+) = Column {
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleLarge,
+    )
+    EditTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = value,
+        onValueChanged = { onChange(it) },
+        hint = hint,
+        singleLine = true,
+        textStyle = MaterialTheme.typography.bodyLarge,
+        keyboardType = keyboardType
+    )
+}
 
 @Preview
 @Composable
