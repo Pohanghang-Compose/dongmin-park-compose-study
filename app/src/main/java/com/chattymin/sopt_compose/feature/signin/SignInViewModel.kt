@@ -9,11 +9,6 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class SignInViewModel: ViewModel(), ContainerHost<SignInState, SignInSideEffect> {
     override val container = container<SignInState, SignInSideEffect>(SignInState())
-    fun signInButtonClicked() {
-        makeToast("로그인 성공!!")
-        navigateToMainPage()
-    }
-
     fun idChanged(id: String) = intent {
         reduce {
             state.copy(
@@ -35,6 +30,11 @@ class SignInViewModel: ViewModel(), ContainerHost<SignInState, SignInSideEffect>
     }
 
     private fun canLogin(id: String, pw: String) = id.isNotEmpty() && pw.isNotEmpty()
+
+    fun signInButtonClicked() {
+        makeToast("로그인 성공!!")
+        navigateToMainPage()
+    }
 
     fun navigateToSignUpPage() = intent {
         postSideEffect(SignInSideEffect.NavigateToSignUp)

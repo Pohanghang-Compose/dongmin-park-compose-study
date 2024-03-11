@@ -47,14 +47,17 @@ fun SignInPage(
     val state by viewModel.collectAsState()
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = navController) {
+    LaunchedEffect(key1 = true) {
         navController.previousBackStackEntry.let {
-            val value = it?.savedStateHandle?.get<String>("data") ?: ""
-            viewModel.idChanged(value)
-            Log.e("TAG", "SignInPage: $value")
+            val id = it?.savedStateHandle?.get<String>("id") ?: ""
+            val pw = it?.savedStateHandle?.get<String>("pw") ?: ""
+            val nickname = it?.savedStateHandle?.get<String>("nickname") ?: ""
+            val singleInfo = it?.savedStateHandle?.get<String>("singleInfo") ?: ""
+            val specialty = it?.savedStateHandle?.get<String>("specialty") ?: ""
+
+            Log.e("TAG", "SignInPage: $id, $pw, $nickname, $singleInfo, $specialty")
         }
     }
-
 
     Scaffold(
         topBar = {

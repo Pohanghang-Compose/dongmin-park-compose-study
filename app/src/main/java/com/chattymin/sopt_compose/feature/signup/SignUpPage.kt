@@ -2,7 +2,6 @@ package com.chattymin.sopt_compose.feature.signup
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -10,10 +9,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,15 +23,17 @@ import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
+import com.chattymin.sopt_compose.ext.toast
 import com.chattymin.sopt_compose.feature.signin.TitleWithEtv
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun SignUpPage(navController: NavController) {
     val viewModel: SignUpViewModel = viewModel()
-    val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     val state by viewModel.collectAsState()
 
@@ -47,15 +47,15 @@ fun SignUpPage(navController: NavController) {
                 .fillMaxSize()
                 .padding(padding)
                 .padding(20.dp)
-                .addFocusCleaner(focusManager),
+                .addFocusCleaner(LocalFocusManager.current),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TitleWithEtv(
                 title = stringResource(id = R.string.id),
                 value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
-            ){
-                viewModel.idChanged(it)
+            ) {
+                viewModel.valueChanged(id = it)
             }
 
             VerticalSpacer(dp = 20)
@@ -64,8 +64,8 @@ fun SignUpPage(navController: NavController) {
                 title = stringResource(id = R.string.pw),
                 value = state.pw,
                 hint = stringResource(id = R.string.auth_pw_hint)
-            ){
-                viewModel.pwChanged(it)
+            ) {
+                viewModel.valueChanged(pw = it)
             }
 
             VerticalSpacer(dp = 20)
@@ -74,21 +74,69 @@ fun SignUpPage(navController: NavController) {
                 title = stringResource(id = R.string.nicknmae),
                 value = state.nickname,
                 hint = stringResource(id = R.string.auth_nickname_hint)
-            ){
-                viewModel.nicknameChanged(it)
+            ) {
+                viewModel.valueChanged(nickname = it)
+            }
+
+            VerticalSpacer(dp = 20)
+
+            TitleWithEtv(
+                title = stringResource(id = R.string.single_info),
+                value = state.singleInfo,
+                hint = stringResource(id = R.string.auth_single_info_hint)
+            ) {
+                viewModel.valueChanged(singleInfo = it)
+            }
+
+            VerticalSpacer(dp = 20)
+
+            TitleWithEtv(
+                title = stringResource(id = R.string.specialty),
+                value = state.specialty,
+                hint = stringResource(id = R.string.auth_specialty_hint)
+            ) {
+                viewModel.valueChanged(specialty = it)
             }
 
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
                 Button(
                     enabled = state.canSignUp,
                     onClick = {
-                        navController.currentBackStackEntry?.savedStateHandle?.set(key = "id", value = state.id)
-                        navController.currentBackStackEntry?.savedStateHandle?.set(key = "pw", value = state.pw)
-                        navController.navigate(Screen.SignIn.route)
-                }) {
+                        viewModel.signUpBtnClicked()
+                    }) {
                     Text(text = stringResource(id = R.string.sign_up_btn))
                 }
             }
+        }
+    }
+
+    viewModel.collectSideEffect {
+        when (it) {
+            SignUpSideEffect.NavigateToSignUp -> {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "id",
+                    value = state.id
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "pw",
+                    value = state.pw
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "nickname",
+                    value = state.nickname
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "singleInfo",
+                    value = state.singleInfo
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "specialty",
+                    value = state.specialty
+                )
+                navController.navigate(Screen.SignIn.route)
+            }
+
+            is SignUpSideEffect.Toast -> toast(context, it.message)
         }
     }
 }
