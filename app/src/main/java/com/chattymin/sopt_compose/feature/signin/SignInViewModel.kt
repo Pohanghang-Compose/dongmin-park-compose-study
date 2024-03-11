@@ -32,7 +32,7 @@ class SignInViewModel: ViewModel(), ContainerHost<SignInState, SignInSideEffect>
     fun canSignIn(id: String, pw: String) = id.isNotEmpty() && pw.isNotEmpty()
 
     fun signInButtonClicked() {
-        makeToast("로그인 성공!!")
+        makeToast()
         navigateToMainPage()
     }
 
@@ -45,7 +45,7 @@ class SignInViewModel: ViewModel(), ContainerHost<SignInState, SignInSideEffect>
     }
 
 
-    private fun makeToast(message: String) = intent {
-        postSideEffect(SignInSideEffect.Toast(message))
+    private fun makeToast() = intent {
+        postSideEffect(SignInSideEffect.Toast)
     }
 }

@@ -11,7 +11,7 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpSideEffect
     override val container = container<SignUpState, SignUpSideEffect>(SignUpState())
     fun signUpBtnClicked() {
         navigateToSignUpPage()
-        makeToast("회원가입 완료!")
+        makeToast()
     }
 
     private fun navigateToSignUpPage() = intent {
@@ -19,8 +19,8 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpSideEffect
     }
 
 
-    private fun makeToast(message: String) = intent {
-        postSideEffect(SignUpSideEffect.Toast(message))
+    private fun makeToast() = intent {
+        postSideEffect(SignUpSideEffect.Toast)
     }
 
     fun valueChanged(
