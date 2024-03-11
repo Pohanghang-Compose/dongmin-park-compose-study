@@ -20,17 +20,22 @@ fun EditTextField(
     value: String,
     onValueChanged: (String) -> Unit,
     hint: String = "",
+    singleLine: Boolean = false,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
 ) {
     BasicTextField(
         modifier = modifier,
         value = value,
         onValueChange = { onValueChanged(it) },
+        singleLine = singleLine,
+        maxLines = maxLines,
         textStyle = textStyle
     ) { innerTextField ->
         Column {
             Box {
                 innerTextField()
+
                 if (value.isEmpty()) {
                     Text(
                         text = hint,

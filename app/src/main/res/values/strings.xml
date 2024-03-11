@@ -9,4 +9,5 @@
     <string name="sign_in_title">Welcome To SOPT</string>
     <string name="sign_in_id_hint">아이디를 입력해 주세요</string>
     <string name="sign_in_pw_hint">비밀번호를 입력해 주세요</string>
+    <string name="sign_in_btn">로그인 하기</string>
 </resources>
