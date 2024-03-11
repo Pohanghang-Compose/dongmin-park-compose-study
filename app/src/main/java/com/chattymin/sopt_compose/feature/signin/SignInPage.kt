@@ -48,14 +48,19 @@ fun SignInPage(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
-        navController.previousBackStackEntry.let {
-            val id = it?.savedStateHandle?.get<String>("id") ?: ""
-            val pw = it?.savedStateHandle?.get<String>("pw") ?: ""
-            val nickname = it?.savedStateHandle?.get<String>("nickname") ?: ""
-            val singleInfo = it?.savedStateHandle?.get<String>("singleInfo") ?: ""
-            val specialty = it?.savedStateHandle?.get<String>("specialty") ?: ""
+        navController.previousBackStackEntry?.savedStateHandle?.run {
+            val id = get<String>("id") ?: ""
+            val pw = get<String>("pw") ?: ""
+            val nickname = get<String>("nickname") ?: ""
+            val singleInfo = get<String>("singleInfo") ?: ""
+            val specialty = get<String>("specialty") ?: ""
 
-            Log.e("TAG", "SignInPage: $id, $pw, $nickname, $singleInfo, $specialty")
+            viewModel.run {
+                valueChanged(id, pw)
+                this.nickname = nickname
+                this.singleInfo = singleInfo
+                this.specialty = specialty
+            }
         }
     }
 
@@ -77,7 +82,7 @@ fun SignInPage(
                 value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
             ) {
-                viewModel.idChanged(it)
+                viewModel.valueChanged(id = it)
             }
 
             VerticalSpacer(dp = 20)
@@ -88,7 +93,7 @@ fun SignInPage(
                 hint = stringResource(id = R.string.auth_pw_hint),
                 keyboardType = KeyboardType.Password
             ) {
-                viewModel.pwChanged(it)
+                viewModel.valueChanged(pw = it)
             }
 
             Row(
@@ -97,7 +102,7 @@ fun SignInPage(
                 verticalAlignment = Alignment.Bottom
             ) {
                 Button(
-                    enabled = state.canLogin,
+                    enabled = state.canSignIn,
                     onClick = {
                         viewModel.signInButtonClicked()
                     }
@@ -118,7 +123,29 @@ fun SignInPage(
 
     viewModel.collectSideEffect {
         when (it) {
-            SignInSideEffect.NavigateToMain -> navController.navigate(Screen.Main.route)
+            SignInSideEffect.NavigateToMain -> {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "id",
+                    value = state.id
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "pw",
+                    value = state.pw
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "nickname",
+                    value = viewModel.nickname
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "singleInfo",
+                    value = viewModel.singleInfo
+                )
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "specialty",
+                    value = viewModel.specialty
+                )
+                navController.navigate(Screen.Main.route)
+            }
             SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
             is SignInSideEffect.Toast -> toast(context, it.message)
         }

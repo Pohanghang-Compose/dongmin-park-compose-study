@@ -9,27 +9,28 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class SignInViewModel: ViewModel(), ContainerHost<SignInState, SignInSideEffect> {
     override val container = container<SignInState, SignInSideEffect>(SignInState())
-    fun idChanged(id: String) = intent {
+    lateinit var nickname: String
+    lateinit var singleInfo: String
+    lateinit var specialty: String
+
+
+    fun valueChanged(
+        id: String? = null,
+        pw: String? = null,
+    ) = intent {
         reduce {
             state.copy(
-                id = id,
-                pw = state.pw,
-                canLogin = canLogin(id, state.pw)
+                id = id ?: state.id,
+                pw = pw ?: state.pw,
+                canSignIn = canSignIn(
+                    id ?: state.id,
+                    pw ?: state.pw,
+                )
             )
         }
     }
 
-    fun pwChanged(pw: String) = intent {
-        reduce {
-            state.copy(
-                id = state.id,
-                pw = pw,
-                canLogin = canLogin(state.id, pw)
-            )
-        }
-    }
-
-    private fun canLogin(id: String, pw: String) = id.isNotEmpty() && pw.isNotEmpty()
+    fun canSignIn(id: String, pw: String) = id.isNotEmpty() && pw.isNotEmpty()
 
     fun signInButtonClicked() {
         makeToast("로그인 성공!!")
