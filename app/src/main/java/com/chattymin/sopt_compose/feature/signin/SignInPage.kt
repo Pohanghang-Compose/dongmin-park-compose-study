@@ -1,8 +1,8 @@
 package com.chattymin.sopt_compose.feature.signin
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,20 +21,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
+import com.chattymin.sopt_compose.components.spacer.HorizontalSpacer
 import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
-import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.components.text.TitleText
+import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 
-@Composable
-fun SignInPage(navController: NavController) {
-    val focusManager = LocalFocusManager.current
 
+@Composable
+fun SignInPage(
+    navController: NavController,
+    viewModel: SignInViewModel = hiltViewModel()
+) {
     val id = remember { mutableStateOf("") }
     val pw = remember { mutableStateOf("") }
 
@@ -48,7 +52,7 @@ fun SignInPage(navController: NavController) {
                 .fillMaxSize()
                 .padding(padding)
                 .padding(20.dp)
-                .addFocusCleaner(focusManager),
+                .addFocusCleaner(LocalFocusManager.current),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TitleWithEtv(
@@ -66,11 +70,23 @@ fun SignInPage(navController: NavController) {
                 keyboardType = KeyboardType.Password
             )
 
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-                Button(onClick = {
-                    navController.navigate(Screen.SignUp.route)
-                }) {
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Button(
+                    onClick = { navController.navigate(Screen.Main.route) }
+                ) {
                     Text(text = stringResource(id = R.string.sign_in_btn))
+                }
+
+                HorizontalSpacer(dp = 4)
+
+                Button(
+                    onClick = { navController.navigate(Screen.SignUp.route) }
+                ) {
+                    Text(text = stringResource(id = R.string.sign_up_btn))
                 }
             }
         }
