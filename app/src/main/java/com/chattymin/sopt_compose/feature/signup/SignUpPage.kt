@@ -20,7 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
-import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
+import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.ext.toast
@@ -58,7 +58,7 @@ fun SignUpPage(navController: NavController) {
                 viewModel.valueChanged(id = it)
             }
 
-            VerticalSpacer(dp = 20)
+            Spacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.pw),
@@ -68,7 +68,7 @@ fun SignUpPage(navController: NavController) {
                 viewModel.valueChanged(pw = it)
             }
 
-            VerticalSpacer(dp = 20)
+            Spacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.nicknmae),
@@ -78,7 +78,7 @@ fun SignUpPage(navController: NavController) {
                 viewModel.valueChanged(nickname = it)
             }
 
-            VerticalSpacer(dp = 20)
+            Spacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.single_info),
@@ -88,7 +88,7 @@ fun SignUpPage(navController: NavController) {
                 viewModel.valueChanged(singleInfo = it)
             }
 
-            VerticalSpacer(dp = 20)
+            Spacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.specialty),

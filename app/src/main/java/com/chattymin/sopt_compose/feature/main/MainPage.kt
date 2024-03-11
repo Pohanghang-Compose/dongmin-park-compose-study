@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,12 +20,30 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chattymin.sopt_compose.R
-import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
+import com.chattymin.sopt_compose.components.spacer.Spacer
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 fun MainPage(navController: NavController) {
+    val viewModel: MainViewModel = viewModel()
+
+    val state by viewModel.collectAsState()
+
+    LaunchedEffect(key1 = true) {
+        navController.previousBackStackEntry?.savedStateHandle?.run {
+            viewModel.valueChanged(
+                id = get<String>("id") ?: "",
+                pw = get<String>("pw") ?: "",
+                nickname = get<String>("nickname") ?: "",
+                singleInfo = get<String>("singleInfo") ?: "",
+                specialty = get<String>("specialty") ?: ""
+            )
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,18 +58,18 @@ fun MainPage(navController: NavController) {
                 contentScale = ContentScale.Crop,
                 contentDescription = "profile image"
             )
-            VerticalSpacer(dp = 8)
-            Text(text = "이름")
-            VerticalSpacer(dp = 12)
-            Text(text = "한줄 자기소개")
+            Spacer(dp = 8)
+            Text(text = state.nickname)
+            Spacer(dp = 12)
+            Text(text = state.singleInfo)
         }
-        VerticalSpacer(dp = 20)
+        Spacer(dp = 20)
 
-        TitleWithText(title = stringResource(id = R.string.id), text = "chattymin")
+        TitleWithText(title = stringResource(id = R.string.id), text = state.id)
 
-        VerticalSpacer(dp = 20)
+        Spacer(dp = 20)
 
-        TitleWithText(title = "특기", text = "침대와 교감하기")
+        TitleWithText(title = stringResource(id = R.string.specialty), text = state.specialty)
     }
 }
 
@@ -59,7 +79,7 @@ fun TitleWithText(title: String, text: String) {
         text = title,
         style = MaterialTheme.typography.titleLarge,
     )
-    VerticalSpacer(dp = 4)
+    Spacer(dp = 4)
     Text(
         text = text,
         style = MaterialTheme.typography.bodyLarge,

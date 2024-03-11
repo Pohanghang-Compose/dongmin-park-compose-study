@@ -9,10 +9,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class SignInViewModel: ViewModel(), ContainerHost<SignInState, SignInSideEffect> {
     override val container = container<SignInState, SignInSideEffect>(SignInState())
-    lateinit var nickname: String
-    lateinit var singleInfo: String
-    lateinit var specialty: String
-
+    var nickname: String = ""
+    var singleInfo: String = ""
+    var specialty: String = ""
 
     fun valueChanged(
         id: String? = null,

@@ -7,4 +7,4 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun VerticalSpacer(dp: Int) = Spacer(modifier = Modifier.padding(vertical = dp.dp))
+fun Spacer(dp: Int) = Spacer(modifier = Modifier.padding(dp.dp))

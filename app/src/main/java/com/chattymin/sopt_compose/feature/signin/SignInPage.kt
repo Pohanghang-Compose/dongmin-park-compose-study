@@ -26,8 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
-import com.chattymin.sopt_compose.components.spacer.HorizontalSpacer
-import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
+import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.ext.addFocusCleaner
@@ -61,6 +60,7 @@ fun SignInPage(
                 this.singleInfo = singleInfo
                 this.specialty = specialty
             }
+            Log.e("TAG", "SignInPage: $nickname, $singleInfo, $specialty")
         }
     }
 
@@ -85,7 +85,7 @@ fun SignInPage(
                 viewModel.valueChanged(id = it)
             }
 
-            VerticalSpacer(dp = 20)
+            Spacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.pw),
@@ -110,7 +110,7 @@ fun SignInPage(
                     Text(text = stringResource(id = R.string.sign_in_btn))
                 }
 
-                HorizontalSpacer(dp = 4)
+                Spacer(dp = 4)
 
                 Button(
                     onClick = { viewModel.navigateToSignUpPage() }
@@ -146,6 +146,7 @@ fun SignInPage(
                 )
                 navController.navigate(Screen.Main.route)
             }
+
             SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
             is SignInSideEffect.Toast -> toast(context, it.message)
         }
