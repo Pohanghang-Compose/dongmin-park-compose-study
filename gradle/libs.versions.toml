@@ -12,8 +12,6 @@ orbitMVI = "4.4.0"
 navigationAlpha = "2.4.0-alpha10"
 navigation = "2.7.7"
 coil = "2.6.0"
-hilt = "2.51"
-hilt-navigation = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,16 +36,11 @@ navigation-compose = {group = "androidx.navigation", name = "navigation-compose"
 navigation-common-ktx = {group = "androidx.navigation", name = "navigation-common-ktx", version.ref = "navigation"}
 navigation-runtime-ktx = {group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigation"}
 coil = {group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
-hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
-hilt-compiler = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-hilt = {id = "com.google.dagger.hilt.android", version.ref = "hilt"}
 
 [bundles]
 orbit = ["orbit-core", "orbit-viewmodel", "orbit-compose", "orbit-test"]
 navigation = ["navigation-compose", "navigation-common-ktx", "navigation-runtime-ktx"]
-hilt = ["hilt-android", "hilt-compiler", "hilt-navigation"]
