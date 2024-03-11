@@ -24,8 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
-import com.chattymin.sopt_compose.components.EditTextField
-import com.chattymin.sopt_compose.components.TitleText
+import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
+import com.chattymin.sopt_compose.components.textfield.EditTextField
+import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
@@ -56,7 +57,7 @@ fun SignInPage(navController: NavController) {
                 hint = stringResource(id = R.string.auth_id_hint)
             )
 
-            Spacer(modifier = Modifier.padding(vertical = 20.dp))
+            VerticalSpacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.pw),

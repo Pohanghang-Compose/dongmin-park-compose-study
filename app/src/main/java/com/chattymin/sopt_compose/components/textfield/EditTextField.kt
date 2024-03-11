@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.components
+package com.chattymin.sopt_compose.components.textfield
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

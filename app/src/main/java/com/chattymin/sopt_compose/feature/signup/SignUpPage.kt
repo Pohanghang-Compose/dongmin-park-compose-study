@@ -15,13 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.chattymin.sopt_compose.R
-import com.chattymin.sopt_compose.components.TitleText
+import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
+import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.feature.signin.TitleWithEtv
 import com.chattymin.sopt_compose.navigation.Screen
@@ -54,7 +54,7 @@ fun SignUpPage(navController: NavController) {
                 hint = stringResource(id = R.string.auth_id_hint)
             )
 
-            Spacer(modifier = Modifier.padding(vertical = 20.dp))
+            VerticalSpacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.pw),
@@ -62,7 +62,7 @@ fun SignUpPage(navController: NavController) {
                 hint = stringResource(id = R.string.auth_pw_hint)
             )
 
-            Spacer(modifier = Modifier.padding(vertical = 20.dp))
+            VerticalSpacer(dp = 20)
 
             TitleWithEtv(
                 title = stringResource(id = R.string.nicknmae),

@@ -3,7 +3,6 @@ package com.chattymin.sopt_compose.feature.main
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.chattymin.sopt_compose.R
+import com.chattymin.sopt_compose.components.spacer.VerticalSpacer
 
 @Composable
 fun MainPage(navController: NavController) {
@@ -38,16 +38,16 @@ fun MainPage(navController: NavController) {
                 contentScale = ContentScale.Crop,
                 contentDescription = "profile image"
             )
-            Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+            VerticalSpacer(dp = 8)
             Text(text = "이름")
-            Spacer(modifier = Modifier.padding(horizontal = 12.dp))
+            VerticalSpacer(dp = 12)
             Text(text = "한줄 자기소개")
         }
-        Spacer(modifier = Modifier.padding(vertical = 20.dp))
+        VerticalSpacer(dp = 20)
 
         TitleWithText(title = stringResource(id = R.string.id), text = "chattymin")
 
-        Spacer(modifier = Modifier.padding(vertical = 12.dp))
+        VerticalSpacer(dp = 20)
 
         TitleWithText(title = "특기", text = "침대와 교감하기")
     }
@@ -59,7 +59,7 @@ fun TitleWithText(title: String, text: String) {
         text = title,
         style = MaterialTheme.typography.titleLarge,
     )
-    Spacer(modifier = Modifier.padding(vertical = 4.dp))
+    VerticalSpacer(dp = 4)
     Text(
         text = text,
         style = MaterialTheme.typography.bodyLarge,
