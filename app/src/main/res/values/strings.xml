@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">sopt-compose</string>
+
+    <!--word-->
+    <string name="id">ID</string>
+    <string name="pw">PW</string>
+    <string name="nicknmae">NickName</string>
+    <string name="single_info">한줄 소개</string>
+    <string name="specialty">특기</string>
+
+    <!--Auth-->
+    <string name="sign_in_title">Welcome To SOPT</string>
+    <string name="sign_up_title">SIGN UP</string>
+    <string name="auth_id_hint">아이디를 입력해 주세요</string>
+    <string name="auth_pw_hint">비밀번호를 입력해 주세요</string>
+    <string name="auth_nickname_hint">닉네임을 입력해 주세요</string>
+    <string name="auth_single_info_hint">한줄 소개를 입력해 주세요</string>
+    <string name="auth_specialty_hint">특기를 입력해 주세요</string>
+    <string name="sign_in_btn">로그인 하기</string>
+    <string name="sign_up_btn">회원가입 하기</string>
+    <string name="sign_in_success">로그인 성공!!</string>
+    <string name="sign_up_success">회원가입 성공!!</string>
 </resources>
