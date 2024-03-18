@@ -20,4 +20,9 @@
     <string name="sign_up_btn">회원가입 하기</string>
     <string name="sign_in_success">로그인 성공!!</string>
     <string name="sign_up_success">회원가입 성공!!</string>
+
+    <!--Bottom Navigation-->
+    <string name="android">Android</string>
+    <string name="home">Home</string>
+    <string name="my">My</string>
 </resources>
