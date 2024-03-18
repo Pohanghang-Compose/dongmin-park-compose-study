@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signin
+package com.chattymin.sopt_compose.feature.auth.signin
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

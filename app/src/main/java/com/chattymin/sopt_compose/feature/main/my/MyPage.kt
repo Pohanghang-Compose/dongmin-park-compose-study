@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.main
+package com.chattymin.sopt_compose.feature.main.my
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 fun MainPage(navController: NavController) {
-    val viewModel: MainViewModel = viewModel()
+    val viewModel: MyViewModel = viewModel()
 
     val state by viewModel.collectAsState()
 

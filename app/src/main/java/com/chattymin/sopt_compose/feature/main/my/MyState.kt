@@ -1,6 +1,6 @@
-package com.chattymin.sopt_compose.feature.main
+package com.chattymin.sopt_compose.feature.main.my
 
-data class MainState(
+data class MyState(
     val id: String = "",
     val pw: String = "",
     val nickname: String = "",

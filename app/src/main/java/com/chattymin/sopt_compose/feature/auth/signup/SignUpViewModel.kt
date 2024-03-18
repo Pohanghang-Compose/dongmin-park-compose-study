@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signup
+package com.chattymin.sopt_compose.feature.auth.signup
 
 import androidx.lifecycle.ViewModel
 import org.orbitmvi.orbit.ContainerHost

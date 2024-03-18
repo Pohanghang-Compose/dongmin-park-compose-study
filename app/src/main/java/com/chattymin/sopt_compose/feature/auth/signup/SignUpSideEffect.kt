@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signup
+package com.chattymin.sopt_compose.feature.auth.signup
 
 sealed class SignUpSideEffect {
     object NavigateToSignUp: SignUpSideEffect()

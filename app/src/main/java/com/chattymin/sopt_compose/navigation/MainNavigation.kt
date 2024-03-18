@@ -7,9 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.chattymin.sopt_compose.feature.main.MainPage
-import com.chattymin.sopt_compose.feature.signin.SignInPage
-import com.chattymin.sopt_compose.feature.signup.SignUpPage
+import com.chattymin.sopt_compose.feature.main.my.MainPage
+import com.chattymin.sopt_compose.feature.auth.signin.SignInPage
+import com.chattymin.sopt_compose.feature.auth.signup.SignUpPage
 
 @Composable
 fun MainNavigation(
@@ -17,12 +17,7 @@ fun MainNavigation(
 ) {
     NavHost(navController = navController, startDestination = Graph.Auth.route) {
         authGraph(navController)
-
-        composable(
-            route = Screen.Main.route
-        ) {
-            MainPage(navController = navController)
-        }
+        mainGraph(navController)
     }
 }
 
@@ -38,6 +33,16 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
             route = Screen.SignUp.route
         ) {
             SignUpPage(navController = navController)
+        }
+    }
+}
+
+fun NavGraphBuilder.mainGraph(navController: NavController) {
+    navigation(startDestination = Screen.Home.route, route = Graph.Main.route) {
+        composable(
+            route = Screen.Home.route
+        ) {
+            MainPage(navController = navController)
         }
     }
 }

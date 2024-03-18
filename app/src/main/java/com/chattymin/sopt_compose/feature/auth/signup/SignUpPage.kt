@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signup
+package com.chattymin.sopt_compose.feature.auth.signup
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.ext.toast
-import com.chattymin.sopt_compose.feature.signin.TitleWithEtv
+import com.chattymin.sopt_compose.feature.auth.signin.TitleWithEtv
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
