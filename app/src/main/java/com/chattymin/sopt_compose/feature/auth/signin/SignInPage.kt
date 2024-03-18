@@ -76,7 +76,7 @@ fun SignInPage(
                 .addFocusCleaner(LocalFocusManager.current),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.id),
                 value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
@@ -86,7 +86,7 @@ fun SignInPage(
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.pw),
                 value = state.pw,
                 hint = stringResource(id = R.string.auth_pw_hint),
@@ -153,7 +153,7 @@ fun SignInPage(
 }
 
 @Composable
-fun TitleWithEtv(
+fun TitleWithEditTextView(
     title: String,
     value: String,
     hint: String,

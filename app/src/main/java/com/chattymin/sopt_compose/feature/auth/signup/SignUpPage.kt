@@ -24,7 +24,7 @@ import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.ext.toast
-import com.chattymin.sopt_compose.feature.auth.signin.TitleWithEtv
+import com.chattymin.sopt_compose.feature.auth.signin.TitleWithEditTextView
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
@@ -50,7 +50,7 @@ fun SignUpPage(navController: NavController) {
                 .addFocusCleaner(LocalFocusManager.current),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.id),
                 value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
@@ -60,7 +60,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.pw),
                 value = state.pw,
                 hint = stringResource(id = R.string.auth_pw_hint)
@@ -70,7 +70,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.nicknmae),
                 value = state.nickname,
                 hint = stringResource(id = R.string.auth_nickname_hint)
@@ -80,7 +80,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.single_info),
                 value = state.singleInfo,
                 hint = stringResource(id = R.string.auth_single_info_hint)
@@ -90,7 +90,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.specialty),
                 value = state.specialty,
                 hint = stringResource(id = R.string.auth_specialty_hint)
