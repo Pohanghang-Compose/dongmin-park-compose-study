@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,32 +50,42 @@ fun MyPage(
         }
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(20.dp),
+    Scaffold(
+        modifier = modifier,
+        floatingActionButton = {
+            FloatingActionButton(onClick = { /*TODO*/ }) {
+                Text(text = "logout")
+            }
+        },
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape),
-                painter = painterResource(id = R.drawable.img_profile),
-                contentScale = ContentScale.Crop,
-                contentDescription = "profile image"
-            )
-            Spacer(dp = 8)
-            Text(text = state.nickname)
-            Spacer(dp = 12)
-            Text(text = state.singleInfo)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp)
+                .padding(it),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(CircleShape),
+                    painter = painterResource(id = R.drawable.img_profile),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = "profile image"
+                )
+                Spacer(dp = 8)
+                Text(text = state.nickname)
+                Spacer(dp = 12)
+                Text(text = state.singleInfo)
+            }
+            Spacer(dp = 20)
+
+            TitleWithText(title = stringResource(id = R.string.id), text = state.id)
+
+            Spacer(dp = 20)
+
+            TitleWithText(title = stringResource(id = R.string.specialty), text = state.specialty)
         }
-        Spacer(dp = 20)
-
-        TitleWithText(title = stringResource(id = R.string.id), text = state.id)
-
-        Spacer(dp = 20)
-
-        TitleWithText(title = stringResource(id = R.string.specialty), text = state.specialty)
     }
 }
 
