@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,6 +30,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.spacer.Spacer
+import com.chattymin.sopt_compose.ext.navigateClear
 import com.chattymin.sopt_compose.navigation.Screen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -54,7 +58,7 @@ fun MyPage(
 
     viewModel.collectSideEffect {
         when(it) {
-            MySideEffect.SignOut -> navController.navigate(Screen.SignIn.route)
+            MySideEffect.SignOut -> navController.navigateClear(Screen.SignIn.route)
         }
     }
 
@@ -62,7 +66,7 @@ fun MyPage(
         modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(onClick = { viewModel.signOut() }) {
-                Text(text = "logout")
+                Icon(imageVector = Icons.Default.ExitToApp, contentDescription = "Sign Out")
             }
         },
     ) {
