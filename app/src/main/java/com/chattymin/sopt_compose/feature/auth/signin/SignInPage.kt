@@ -29,6 +29,7 @@ import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.ext.addFocusCleaner
+import com.chattymin.sopt_compose.ext.navigateClear
 import com.chattymin.sopt_compose.ext.toast
 import com.chattymin.sopt_compose.navigation.BottomNavItem
 import com.chattymin.sopt_compose.navigation.Screen
@@ -142,7 +143,7 @@ fun SignInPage(
                     key = "specialty",
                     value = viewModel.specialty
                 )
-                navController.navigate(BottomNavItem.Home.route)
+                navController.navigateClear(BottomNavItem.Home.route)
             }
 
             SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
