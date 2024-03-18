@@ -114,8 +114,6 @@ class HomeViewModel : ViewModel(), ContainerHost<HomeState, HomeSideEffect> {
             )
         ),
     )
-
-
 }
 
 data class Friend(

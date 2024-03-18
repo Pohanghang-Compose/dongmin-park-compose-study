@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -57,7 +56,7 @@ fun MyPage(
     }
 
     viewModel.collectSideEffect {
-        when(it) {
+        when (it) {
             MySideEffect.SignOut -> navController.navigateClear(Screen.SignIn.route)
         }
     }

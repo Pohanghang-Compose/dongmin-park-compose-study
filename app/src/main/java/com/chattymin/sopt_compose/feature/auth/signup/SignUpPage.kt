@@ -141,7 +141,6 @@ fun SignUpPage(navController: NavController) {
     }
 }
 
-
 @Composable
 @Preview
 fun SignUpPreview() {
