@@ -31,7 +31,9 @@ fun BottomNavigation(navController: NavController) {
                 label = { Text(text = stringResource(id = item.title)) },
                 selected = item.route == backStackEntry.value?.destination?.route,
                 onClick = {
-                    navController.navigate(item.route)
+                    navController.navigate(item.route){
+                        launchSingleTop = true
+                    }
                 }
             )
         }
