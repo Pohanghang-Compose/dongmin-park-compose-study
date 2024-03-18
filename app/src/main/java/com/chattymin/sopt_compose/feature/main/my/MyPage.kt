@@ -27,7 +27,10 @@ import com.chattymin.sopt_compose.components.spacer.Spacer
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun MainPage(navController: NavController) {
+fun MyPage(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val viewModel: MyViewModel = viewModel()
 
     val state by viewModel.collectAsState()
@@ -45,7 +48,7 @@ fun MainPage(navController: NavController) {
     }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(20.dp),
     ) {
