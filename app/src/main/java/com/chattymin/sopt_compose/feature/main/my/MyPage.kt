@@ -27,7 +27,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.spacer.Spacer
+import com.chattymin.sopt_compose.navigation.Screen
 import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun MyPage(
@@ -50,10 +52,16 @@ fun MyPage(
         }
     }
 
+    viewModel.collectSideEffect {
+        when(it) {
+            MySideEffect.SignOut -> navController.navigate(Screen.SignIn.route)
+        }
+    }
+
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = { viewModel.signOut() }) {
                 Text(text = "logout")
             }
         },

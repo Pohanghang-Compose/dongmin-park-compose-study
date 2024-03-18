@@ -3,11 +3,16 @@ package com.chattymin.sopt_compose.feature.main.my
 import androidx.lifecycle.ViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class MyViewModel: ViewModel(), ContainerHost<MyState, MySideEffect> {
     override val container = container<MyState, MySideEffect>(MyState())
+
+    fun signOut() = intent {
+        postSideEffect(MySideEffect.SignOut)
+    }
 
     fun valueChanged(
         id: String? = null,
