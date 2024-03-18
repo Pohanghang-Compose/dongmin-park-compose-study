@@ -30,6 +30,7 @@ import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.ext.toast
+import com.chattymin.sopt_compose.navigation.BottomNavItem
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
@@ -141,7 +142,7 @@ fun SignInPage(
                     key = "specialty",
                     value = viewModel.specialty
                 )
-                navController.navigate(Screen.Main.route)
+                navController.navigate(BottomNavItem.Home.route)
             }
 
             SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
