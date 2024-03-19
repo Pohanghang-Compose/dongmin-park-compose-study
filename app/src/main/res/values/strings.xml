@@ -7,6 +7,9 @@
     <string name="nicknmae">NickName</string>
     <string name="single_info">한줄 소개</string>
     <string name="specialty">특기</string>
+    <string name="android">Android</string>
+    <string name="home">Home</string>
+    <string name="my">My</string>
 
     <!--Auth-->
     <string name="sign_in_title">Welcome To SOPT</string>
@@ -20,9 +23,6 @@
     <string name="sign_up_btn">회원가입 하기</string>
     <string name="sign_in_success">로그인 성공!!</string>
     <string name="sign_up_success">회원가입 성공!!</string>
+    <string name="sign_out_success">로그아웃 성공!!</string>
 
-    <!--Bottom Navigation-->
-    <string name="android">Android</string>
-    <string name="home">Home</string>
-    <string name="my">My</string>
 </resources>

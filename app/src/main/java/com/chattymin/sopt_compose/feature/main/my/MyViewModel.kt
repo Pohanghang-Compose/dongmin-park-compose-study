@@ -12,6 +12,7 @@ class MyViewModel: ViewModel(), ContainerHost<MyState, MySideEffect> {
 
     fun signOut() = intent {
         postSideEffect(MySideEffect.SignOut)
+        postSideEffect(MySideEffect.Toast)
     }
 
     fun valueChanged(

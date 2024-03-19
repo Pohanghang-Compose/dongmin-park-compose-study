@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,6 +31,7 @@ import androidx.navigation.NavController
 import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.ext.navigateClear
+import com.chattymin.sopt_compose.ext.toast
 import com.chattymin.sopt_compose.navigation.Screen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -42,6 +44,7 @@ fun MyPage(
     val viewModel: MyViewModel = viewModel()
 
     val state by viewModel.collectAsState()
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = true) {
         navController.previousBackStackEntry?.savedStateHandle?.run {
@@ -58,6 +61,7 @@ fun MyPage(
     viewModel.collectSideEffect {
         when (it) {
             MySideEffect.SignOut -> navController.navigateClear(Screen.SignIn.route)
+            MySideEffect.Toast -> toast(context, context.getString(R.string.sign_out_success))
         }
     }
 
