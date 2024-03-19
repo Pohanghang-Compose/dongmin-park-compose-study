@@ -123,6 +123,7 @@ fun SignInPage(
     viewModel.collectSideEffect {
         when (it) {
             SignInSideEffect.NavigateToMain -> {
+                navController.navigateClear(BottomNavItem.Home.route)
                 navController.currentBackStackEntry?.savedStateHandle?.set(
                     key = "id",
                     value = state.id
@@ -143,7 +144,6 @@ fun SignInPage(
                     key = "specialty",
                     value = viewModel.specialty
                 )
-                navController.navigateClear(BottomNavItem.Home.route)
             }
 
             SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
