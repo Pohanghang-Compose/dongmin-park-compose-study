@@ -63,6 +63,14 @@ fun SignInPage(
         }
     }
 
+    viewModel.collectSideEffect {
+        when (it) {
+            SignInSideEffect.NavigateToMain -> navigateToMain(navController, state, viewModel)
+            SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
+            SignInSideEffect.Toast -> toast(context, context.getString(R.string.sign_in_success))
+        }
+    }
+
     Scaffold(
         topBar = {
             TitleText(text = stringResource(id = R.string.sign_in_title))
@@ -119,37 +127,30 @@ fun SignInPage(
             }
         }
     }
+}
 
-    viewModel.collectSideEffect {
-        when (it) {
-            SignInSideEffect.NavigateToMain -> {
-                navController.navigateClear(BottomNavItem.Home.route)
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "id",
-                    value = state.id
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "pw",
-                    value = state.pw
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "nickname",
-                    value = viewModel.nickname
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "singleInfo",
-                    value = viewModel.singleInfo
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "specialty",
-                    value = viewModel.specialty
-                )
-            }
-
-            SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
-            is SignInSideEffect.Toast -> toast(context, context.getString(R.string.sign_in_success))
-        }
-    }
+fun navigateToMain(navController: NavController, state: SignInState, viewModel: SignInViewModel) {
+    navController.navigateClear(BottomNavItem.Home.route)
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "id",
+        value = state.id
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "pw",
+        value = state.pw
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "nickname",
+        value = viewModel.nickname
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "singleInfo",
+        value = viewModel.singleInfo
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "specialty",
+        value = viewModel.specialty
+    )
 }
 
 @Composable

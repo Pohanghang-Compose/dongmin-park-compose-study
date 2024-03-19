@@ -37,6 +37,13 @@ fun SignUpPage(navController: NavController) {
 
     val state by viewModel.collectAsState()
 
+    viewModel.collectSideEffect {
+        when (it) {
+            SignUpSideEffect.NavigateToSignUp -> navigateToSignUp(navController, state)
+            SignUpSideEffect.Toast -> toast(context, context.getString(R.string.sign_up_success))
+        }
+    }
+
     Scaffold(
         topBar = {
             TitleText(text = stringResource(id = R.string.sign_up_title))
@@ -109,36 +116,30 @@ fun SignUpPage(navController: NavController) {
             }
         }
     }
+}
 
-    viewModel.collectSideEffect {
-        when (it) {
-            SignUpSideEffect.NavigateToSignUp -> {
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "id",
-                    value = state.id
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "pw",
-                    value = state.pw
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "nickname",
-                    value = state.nickname
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "singleInfo",
-                    value = state.singleInfo
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "specialty",
-                    value = state.specialty
-                )
-                navController.navigate(Screen.SignIn.route)
-            }
-
-            is SignUpSideEffect.Toast -> toast(context, context.getString(R.string.sign_up_success))
-        }
-    }
+fun navigateToSignUp(navController: NavController, state: SignUpState) {
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "id",
+        value = state.id
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "pw",
+        value = state.pw
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "nickname",
+        value = state.nickname
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "singleInfo",
+        value = state.singleInfo
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "specialty",
+        value = state.specialty
+    )
+    navController.navigate(Screen.SignIn.route)
 }
 
 @Composable
