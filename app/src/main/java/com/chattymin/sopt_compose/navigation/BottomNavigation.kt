@@ -20,7 +20,7 @@ fun BottomNavigation(navController: NavController) {
     )
 
     NavigationBar {
-        items.forEachIndexed { _, item ->
+        items.forEach { item ->
             NavigationBarItem(
                 icon = {
                     Icon(
