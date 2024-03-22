@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.FloatingActionButton
@@ -28,6 +29,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.chattymin.sopt_compose.R
 import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.ext.navigateClear
@@ -80,13 +83,17 @@ fun MyPage(
                 .padding(it),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
+                AsyncImage(
+                    model = ImageRequest.Builder(context).data(R.drawable.img_profile)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    placeholder = painterResource(id = R.drawable.ic_launcher_background),
+                    error = painterResource(id = R.drawable.ic_launcher_background),
                     modifier = Modifier
                         .size(60.dp)
-                        .clip(CircleShape),
-                    painter = painterResource(id = R.drawable.img_profile),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = "profile image"
+                        .padding(5.dp)
+                        .clip(shape = RoundedCornerShape(40.dp))
                 )
                 Spacer(dp = 8)
                 Text(text = state.nickname)
