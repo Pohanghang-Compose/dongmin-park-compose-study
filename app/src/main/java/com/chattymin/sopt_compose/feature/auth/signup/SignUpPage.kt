@@ -119,27 +119,16 @@ fun SignUpPage(navController: NavController) {
 }
 
 fun navigateToSignUp(navController: NavController, state: SignUpState) {
-    navController.currentBackStackEntry?.savedStateHandle?.set(
-        key = "id",
-        value = state.id
-    )
-    navController.currentBackStackEntry?.savedStateHandle?.set(
-        key = "pw",
-        value = state.pw
-    )
-    navController.currentBackStackEntry?.savedStateHandle?.set(
-        key = "nickname",
-        value = state.nickname
-    )
-    navController.currentBackStackEntry?.savedStateHandle?.set(
-        key = "singleInfo",
-        value = state.singleInfo
-    )
-    navController.currentBackStackEntry?.savedStateHandle?.set(
-        key = "specialty",
-        value = state.specialty
-    )
-    navController.navigate(Screen.SignIn.route)
+    with(navController) {
+        currentBackStackEntry?.savedStateHandle?.run {
+            set(key = "id", value = state.id)
+            set(key = "pw", value = state.pw)
+            set(key = "nickname", value = state.nickname)
+            set(key = "singleInfo", value = state.singleInfo)
+            set(key = "specialty", value = state.specialty)
+        }
+        navigate(Screen.SignIn.route)
+    }
 }
 
 @Composable
