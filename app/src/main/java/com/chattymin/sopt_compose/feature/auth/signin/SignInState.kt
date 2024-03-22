@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signin
+package com.chattymin.sopt_compose.feature.auth.signin
 
 data class SignInState(
     val id: String = "",

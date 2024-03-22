@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signin
+package com.chattymin.sopt_compose.feature.auth.signin
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,7 +29,9 @@ import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.components.textfield.EditTextField
 import com.chattymin.sopt_compose.ext.addFocusCleaner
+import com.chattymin.sopt_compose.ext.navigateClear
 import com.chattymin.sopt_compose.ext.toast
+import com.chattymin.sopt_compose.navigation.BottomNavItem
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
@@ -61,6 +63,14 @@ fun SignInPage(
         }
     }
 
+    viewModel.collectSideEffect {
+        when (it) {
+            SignInSideEffect.NavigateToMain -> navigateToMain(navController, state, viewModel)
+            SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
+            SignInSideEffect.Toast -> toast(context, context.getString(R.string.sign_in_success))
+        }
+    }
+
     Scaffold(
         topBar = {
             TitleText(text = stringResource(id = R.string.sign_in_title))
@@ -74,7 +84,7 @@ fun SignInPage(
                 .addFocusCleaner(LocalFocusManager.current),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.id),
                 value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
@@ -84,7 +94,7 @@ fun SignInPage(
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.pw),
                 value = state.pw,
                 hint = stringResource(id = R.string.auth_pw_hint),
@@ -117,41 +127,34 @@ fun SignInPage(
             }
         }
     }
+}
 
-    viewModel.collectSideEffect {
-        when (it) {
-            SignInSideEffect.NavigateToMain -> {
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "id",
-                    value = state.id
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "pw",
-                    value = state.pw
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "nickname",
-                    value = viewModel.nickname
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "singleInfo",
-                    value = viewModel.singleInfo
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "specialty",
-                    value = viewModel.specialty
-                )
-                navController.navigate(Screen.Main.route)
-            }
-
-            SignInSideEffect.NavigateToSignUp -> navController.navigate(Screen.SignUp.route)
-            is SignInSideEffect.Toast -> toast(context, context.getString(R.string.sign_in_success))
-        }
-    }
+fun navigateToMain(navController: NavController, state: SignInState, viewModel: SignInViewModel) {
+    navController.navigateClear(BottomNavItem.Home.route)
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "id",
+        value = state.id
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "pw",
+        value = state.pw
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "nickname",
+        value = viewModel.nickname
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "singleInfo",
+        value = viewModel.singleInfo
+    )
+    navController.currentBackStackEntry?.savedStateHandle?.set(
+        key = "specialty",
+        value = viewModel.specialty
+    )
 }
 
 @Composable
-fun TitleWithEtv(
+fun TitleWithEditTextView(
     title: String,
     value: String,
     hint: String,

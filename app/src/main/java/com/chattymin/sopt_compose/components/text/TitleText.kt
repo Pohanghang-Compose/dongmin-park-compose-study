@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TitleText(
-    modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier

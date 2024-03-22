@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun EditTextField(
-    modifier: Modifier = Modifier,
     value: String,
     onValueChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
     hint: String = "",
     singleLine: Boolean = false,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
@@ -32,7 +32,7 @@ fun EditTextField(
     BasicTextField(
         modifier = modifier,
         value = value,
-        onValueChange = { onValueChanged(it) },
+        onValueChange = onValueChanged,
         singleLine = singleLine,
         maxLines = maxLines,
         textStyle = textStyle,

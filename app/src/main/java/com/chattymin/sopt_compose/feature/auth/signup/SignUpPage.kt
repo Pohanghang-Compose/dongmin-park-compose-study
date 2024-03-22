@@ -1,4 +1,4 @@
-package com.chattymin.sopt_compose.feature.signup
+package com.chattymin.sopt_compose.feature.auth.signup
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.chattymin.sopt_compose.components.spacer.Spacer
 import com.chattymin.sopt_compose.components.text.TitleText
 import com.chattymin.sopt_compose.ext.addFocusCleaner
 import com.chattymin.sopt_compose.ext.toast
-import com.chattymin.sopt_compose.feature.signin.TitleWithEtv
+import com.chattymin.sopt_compose.feature.auth.signin.TitleWithEditTextView
 import com.chattymin.sopt_compose.navigation.Screen
 import com.chattymin.sopt_compose.ui.theme.SoptcomposeTheme
 import org.orbitmvi.orbit.compose.collectAsState
@@ -36,6 +36,13 @@ fun SignUpPage(navController: NavController) {
     val context = LocalContext.current
 
     val state by viewModel.collectAsState()
+
+    viewModel.collectSideEffect {
+        when (it) {
+            SignUpSideEffect.NavigateToSignUp -> navigateToSignUp(navController, state)
+            SignUpSideEffect.Toast -> toast(context, context.getString(R.string.sign_up_success))
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -50,7 +57,7 @@ fun SignUpPage(navController: NavController) {
                 .addFocusCleaner(LocalFocusManager.current),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.id),
                 value = state.id,
                 hint = stringResource(id = R.string.auth_id_hint)
@@ -60,7 +67,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.pw),
                 value = state.pw,
                 hint = stringResource(id = R.string.auth_pw_hint)
@@ -70,7 +77,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.nicknmae),
                 value = state.nickname,
                 hint = stringResource(id = R.string.auth_nickname_hint)
@@ -80,7 +87,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.single_info),
                 value = state.singleInfo,
                 hint = stringResource(id = R.string.auth_single_info_hint)
@@ -90,7 +97,7 @@ fun SignUpPage(navController: NavController) {
 
             Spacer(dp = 20)
 
-            TitleWithEtv(
+            TitleWithEditTextView(
                 title = stringResource(id = R.string.specialty),
                 value = state.specialty,
                 hint = stringResource(id = R.string.auth_specialty_hint)
@@ -109,38 +116,20 @@ fun SignUpPage(navController: NavController) {
             }
         }
     }
-
-    viewModel.collectSideEffect {
-        when (it) {
-            SignUpSideEffect.NavigateToSignUp -> {
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "id",
-                    value = state.id
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "pw",
-                    value = state.pw
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "nickname",
-                    value = state.nickname
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "singleInfo",
-                    value = state.singleInfo
-                )
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "specialty",
-                    value = state.specialty
-                )
-                navController.navigate(Screen.SignIn.route)
-            }
-
-            is SignUpSideEffect.Toast -> toast(context, context.getString(R.string.sign_up_success))
-        }
-    }
 }
 
+fun navigateToSignUp(navController: NavController, state: SignUpState) {
+    with(navController) {
+        currentBackStackEntry?.savedStateHandle?.run {
+            set(key = "id", value = state.id)
+            set(key = "pw", value = state.pw)
+            set(key = "nickname", value = state.nickname)
+            set(key = "singleInfo", value = state.singleInfo)
+            set(key = "specialty", value = state.specialty)
+        }
+        navigate(Screen.SignIn.route)
+    }
+}
 
 @Composable
 @Preview
