@@ -7,12 +7,20 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class MyViewModel: ViewModel(), ContainerHost<MyState, MySideEffect> {
+class MyViewModel : ViewModel(), ContainerHost<MyState, MySideEffect> {
     override val container = container<MyState, MySideEffect>(MyState())
 
     fun signOut() = intent {
         postSideEffect(MySideEffect.SignOut)
         postSideEffect(MySideEffect.Toast)
+    }
+
+    fun settingButtonClicked() = intent {
+        reduce {
+            state.copy(
+                showDialog = !state.showDialog
+            )
+        }
     }
 
     fun valueChanged(
