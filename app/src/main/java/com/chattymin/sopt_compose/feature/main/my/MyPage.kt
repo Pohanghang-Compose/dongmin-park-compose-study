@@ -74,7 +74,7 @@ fun MyPage(
     }
 
     if (state.showDialog) {
-        SettingDialog(
+        SettingBottomSheet(
             onDismiss = {
                 viewModel.settingButtonClicked()
             }
@@ -136,7 +136,7 @@ fun MyPage(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingDialog(
+fun SettingBottomSheet(
     onDismiss: () -> Unit
 ) {
     ModalBottomSheet(
@@ -149,7 +149,6 @@ fun SettingDialog(
         ) {
             Text(text = "넣을게 없네요~")
         }
-
     }
 }
 
